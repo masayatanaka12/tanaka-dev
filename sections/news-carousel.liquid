@@ -1,0 +1,235 @@
+{% comment %} Task b {% endcomment %}
+<div class="new-carousel">
+  <h2 class="new-carousel__title">{{ section.settings.title }}<h2>
+  <div class="new-carousel__container">
+    {% for block in section.blocks %}
+      {% if block.settings.block_featured %}
+        {% case block.type %}
+          {% when 'campaign' %}
+            <div class="campaign new-carousel__box">
+              <h3 class="campaign__title">{{block.settings.block_title}}</h3>
+              <p>{{block.settings.block_description}}</p>
+            </div>
+          {% when 'new-product' %}
+            <div class="new-product new-carousel__box">
+              <h3 class="new-product__title">{{block.settings.block_title}}</h3>
+              <p>{{block.settings.block_description}}</p>
+            </div>
+          {% when 'news' %}
+            <div class="news new-carousel__box">
+              <h3 class="news__title">{{block.settings.block_title}}</h3>
+              <p>{{block.settings.block_description}}</p>
+            </div>
+        {% endcase %}
+      {% endif %}
+    {% endfor %}
+    {% for block in section.blocks %}
+      {% if block.settings.block_featured != true %}
+        {% case block.type %}
+          {% when 'campaign' %}
+            <div class="campaign new-carousel__box">
+              <h3 class="campaign__title">{{block.settings.block_title}}</h3>
+              <p>{{block.settings.block_description}}</p>
+            </div>
+          {% when 'new-product' %}
+            <div class="new-product new-carousel__box">
+              <h3 class="new-product__title">{{block.settings.block_title}}</h3>
+              <p>{{block.settings.block_description}}</p>
+            </div>
+          {% when 'news' %}
+            <div class="news new-carousel__box">
+              <h3 class="news__title">{{block.settings.block_title}}</h3>
+              <p>{{block.settings.block_description}}</p>
+            </div>
+        {% endcase %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+<style>
+
+.new-carousel{
+  width: 80%;
+  margin: 0 auto
+}
+
+.new-carousel__container{
+  margin-top: 2rem;
+}
+
+.new-carousel__box{
+  width: calc(33.3% - 2rem * 2 / 3);
+}
+
+.new-carousel__box:not(:nth-child(3n + 1)){
+  margin-left: 2rem;
+}
+
+.new-carousel__box{
+  position: relative;
+  padding: 0.5em 1.5em;
+  border-top: solid 2px black;
+  border-bottom: solid 2px black;
+}
+.new-carousel__box:before, .new-carousel__box:after{
+  content: '';
+  position: absolute;
+  top: -10px;
+  width: 2px;
+  height: -webkit-calc(100% + 20px);
+  height: calc(100% + 20px);
+  background-color: black;
+}
+
+.new-carousel__box:before {
+  left: 10px;
+}
+
+.new-carousel__box:after {
+  right: 10px;
+}
+
+.new-carousel__box h3{
+  margin: 0;
+  font-size: 1.1rem
+}
+
+.new-carousel__box p{
+  font-size: 1rem;
+  margin: 0.8rem 0 0 0;
+}
+
+.new-carousel__container{
+  display: flex;
+}
+
+.campaign__title{
+  color: red;
+}
+
+.new-product__title{
+  color: blue;
+}
+
+.news__title{
+  color: green;
+}
+
+@media screen and (max-width: 959px) {
+
+  .new-carousel__title{
+    text-align: center;
+  }
+
+  .new-carousel__box:not(:nth-child(3n + 1)){
+    margin: 0 auto;
+  }
+
+  .new-carousel__box{
+    width: 50%;
+    margin: 0 auto;
+  }
+
+  .new-carousel__container{
+    display: block;
+  }
+
+  .new-carousel__box:not(:first-child){
+    margin-top: 1.5rem;
+  }
+}
+
+</style>
+
+{% schema %}
+  {
+    "name": "news-carousel",
+    "tag": "section",
+    "class": "news-carousel",
+    "settings": [
+      {
+        "type": "text",
+        "id": "title",
+        "label": "title"
+      }
+    ],
+    "blocks": [
+      {
+        "type": "campaign",
+        "name": "Campaign",
+        "settings": [
+          {
+            "id": "block_title",
+            "type": "text",
+            "label": "Title",
+            "default": "Title of campaign"
+          },
+          {
+            "id": "block_description",
+            "type": "textarea",
+            "label": "Description",
+            "default": "Description of campaign"
+          },
+          {
+            "type": "checkbox",
+            "id": "block_featured",
+            "label": "Featured",
+            "default": false,
+            "info": "If you check this box, this item will move to the front."
+          }
+        ]
+      },
+      {
+        "type": "new-product",
+        "name": "New Product",
+        "settings": [
+          {
+            "id": "block_title",
+            "type": "text",
+            "label": "Title",
+            "default": "Title of New Product"
+          },
+          {
+            "id": "block_description",
+            "type": "textarea",
+            "label": "Description",
+            "default": "Description of New Product"
+          },
+          {
+            "type": "checkbox",
+            "id": "block_featured",
+            "label": "Featured",
+            "default": false,
+            "info": "If you check this box, this item will move to the front."
+          }
+        ]
+      },
+      {
+        "type": "news",
+        "name": "News",
+        "settings": [
+          {
+            "id": "block_title",
+            "type": "text",
+            "label": "Title",
+            "default": "Title of News"
+          },
+          {
+            "id": "block_description",
+            "type": "textarea",
+            "label": "Description",
+            "default": "Description of News"
+          },
+          {
+            "type": "checkbox",
+            "id": "block_featured",
+            "label": "Featured",
+            "default": false,
+            "info": "If you check this box, this item will move to the front."
+          }
+        ]
+      }
+    ]
+  }
+{% endschema %}
