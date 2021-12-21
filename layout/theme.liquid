@@ -1,0 +1,92 @@
+<!doctype html>
+<html>
+<head>
+  <title>{{ page_title }}</title>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="description" content="{{ page_description | escape }}">
+  <link rel="canonical" href="{{ canonical_url }}">
+  <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
+  {{ content_for_header }} <!-- Header hook for plugins -->
+  {{ 'application.css' | asset_url | stylesheet_tag }}
+  {{ 'application.js' | asset_url | script_tag }}
+  {{ '//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js' | script_tag }}
+
+  
+  {% comment %} Task a {% endcomment %}
+  {{ 'task-a.css' | asset_url | stylesheet_tag }}
+  {% comment %} /// {% endcomment %}
+
+
+</head>
+<body>
+
+  {% for link in linklists.main-menu.links %}
+    {% assign child_list_handle = link.title | handleize %}
+    {% if linklists[child_list_handle].links != blank %}
+      <a href="{{ link.url }}">{{ link.title }}</a>
+      [{% for childlink in linklists[child_list_handle].links %}
+        <a href="{{ childlink.url }}">{{ childlink.title | escape }}</a>
+      {% endfor %}]
+    {% else %}
+      <a href="{{ link.url }}">{{ link.title }}</a>
+    {% endif %}
+  {% endfor %}
+  <a href="/cart">cart</a>
+  {% if shop.customer_accounts_enabled %}
+    {% if customer %}
+      <a href="/account">account</a>
+      {{ 'log out'  | customer_logout_link }}
+    {% else %}
+      {{ 'log in ' | customer_login_link }}
+      {{ 'register' | customer_register_link }}
+    {% endif %}
+  {% endif %}
+
+  <main role="main">
+    {{ content_for_layout }}
+  </main>
+
+
+{% comment %} Task a {% endcomment %}
+<script>
+
+function cartIndex() {
+  jQuery.post('/cart/add.js', {
+    items: [
+      {
+        quantity: parseInt($("#Quantity").val()),
+        id: {{ product.selected_or_first_available_variant.id }},
+        properties: {
+          'cart_index': {{ cart.item_count }}
+        }
+      }
+    ]
+  })
+}
+
+//button
+$("#Quantity").change(function(){
+  {% assign num = 0 %}
+    {% for quantity in cart.items %}
+      {% if quantity.product.id == product.id%}
+        {% assign num = num | plus: quantity.quantity %}
+      {% endif  %}
+    {% endfor %}
+    var newQuantity = {{num}};
+    var currentInventory = {{ current_variant.inventory_quantity }};
+    var myQuantity = parseInt($("#Quantity").val());
+    var addToCart = $("#addToCart");
+    if(currentInventory < newQuantity + myQuantity){
+      addToCart.addClass("is-gray");
+      addToCart.text("Out of Stock");
+    } else {
+      addToCart.removeClass("is-gray");
+      addToCart.text("Add to cart");
+    }
+});
+</script>
+
+
+</body>
+</html>

@@ -1,0 +1,40 @@
+{% assign current_variant = product.selected_or_first_available_variant %}
+{% assign featured_image = current_variant.featured_image | default: product.featured_image %}
+<img src="{{ featured_image | img_url: 'large' }}" alt="{{ featured_image.alt | escape }}" id="ProductPhotoImg">
+{% for image in product.images %}
+  <a href="{{ image.src | img_url: 'large' }}">
+    <img src="{{ image.src | img_url: 'compact' }}" alt="{{ image.alt | escape }}">
+  </a>
+{% endfor %}
+<h1>{{ product.title }}</h1>
+
+<form action="/cart/add" name="my_form" method="post" enctype="multipart/form-data">
+  <select name="id" id="productSelect">
+    {% for variant in product.variants %}
+      {% if variant.available %}
+        <option value="{{ variant.id }}">
+          {{ variant.title }} - {{ variant.price | money_with_currency }}
+        </option>
+      {% else %}
+        <option disabled="disabled">
+          {{ variant.title }} - sold out
+        </option>
+      {% endif %}
+    {% endfor %}
+  </select>
+  {{ current_variant.price | money }}
+  <label for="Quantity">quantity</label>
+  <input type="number" id="Quantity" name="properties[cart_index]" value="0" min="0">
+
+
+  <!-- Task a -->
+  {% if current_variant.available %}
+    <button type="submit" name="add" id="addToCart" class="mybutton mybutton__addtocart" onclick="cartIndex(); return false;">Add to cart</button>
+  {%else%}
+    <button class="mybutton mybutton__outofstock" disabled>Out of Stock</button>
+  {%endif%}
+  <!-- ///  -->
+
+
+</form>
+<div>{{ product.description }}</div>

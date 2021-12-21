@@ -1,0 +1,90 @@
+/* Task a */
+
+.mybutton{
+  width: 13rem;
+  font-size: 1rem;
+  letter-spacing: .1rem;
+  border-radius: 0;
+  font-family: inherit;
+  transition: all 0.2s ease-in-out;
+  font-weight: 500;
+  text-align: center;
+  display: block;
+  border: none;
+  padding: 1rem 2rem;
+  margin: 2rem 0;
+  color: #fff;
+}
+
+.mycart{
+  position: fixed;
+  right: 0;
+  top: 0;
+  z-index: 999;
+  background-color: rgba(0,0,0,0.6);
+  transition: background .3s ease;
+}
+
+.mybutton__addtocart{
+  cursor: pointer;
+  background: #339900;
+}
+
+.mybutton__addtocart:hover{
+  background: #0033CC;
+}
+
+.mybutton__outofstock{
+  background: #666666;
+}
+
+.cartindex{
+  display: none;
+}
+
+.cartindex input{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: transparent;
+  border: none;
+  border-radius: 0;
+  font: inherit;
+  outline: none;
+}
+
+.is-gray{
+  background: #666666;
+  pointer-events: none;
+}
+
+.is-display{
+  display: block;
+}
+
+.no-display{
+  display: none;
+}
+
+.mynumber{
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background: transparent;
+  border-radius: 0;
+  font: inherit;
+  outline: none;
+  outline-offset: none;
+  border: solid 1px #000;
+  width: 8rem;
+  text-align: center;
+  margin-left: 1rem;
+}
+
+.mynumber:focus-visible{
+  outline: none;
+  box-shadow: none;
+}
+
+
+
