@@ -1,0 +1,138 @@
+/* Task c */
+
+.mymodal{
+  position: fixed;
+  width: 40%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1001;
+  background: #fff;
+  padding: 3rem 2rem;
+  text-align: center;
+  max-width: 45rem;
+  line-height: 1;
+}
+
+.mymodal__title{
+  margin: 1rem 0 0 0;
+}
+
+.mymodal__text{
+  margin: 0;
+}
+
+.modal__stock{
+  margin: 2rem 0 0 0;
+}
+
+.modal__stock p{
+  font-size: 1.4rem;
+  margin: 0;
+}
+
+.mymodal h4{
+  margin: 0;
+  font-size: 1.6rem;
+}
+
+.mymodal__cart{
+  margin-top: 2rem;
+}
+
+.mymodal table{
+  margin: 0;
+}
+
+.mymodal th, .mymodal td{
+  padding: .5rem 0 !important;
+  margin: 0 !important;
+}
+
+.mymodal__title{
+  font-weight: 700;
+}
+
+.mymodal__cart table{
+  margin: 1rem auto 0;
+  width: 100%;
+}
+
+.mymodal__stock table{
+  margin: 1rem auto 0;
+  width: 30%;
+}
+
+.mymodal__total{
+  margin-top: 3rem;
+}
+
+.mymodal__total p{
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+.mymodal__total p:not(:first-child){
+  margin-top: 1rem;
+}
+
+.mymodal__button{
+  margin-top: 3rem;
+}
+
+.mymodal__button button{
+  background-color: transparent;
+  border: 1px #000 solid;
+  cursor: pointer;
+  outline: none;
+  padding: .5rem 2rem;
+  appearance: none;
+  transition: all .3s ease;
+}
+
+.mymodal__button button:hover{
+  background: #000;
+  color: #fff;
+}
+
+.red{
+  color: #ff0000;
+}
+
+.bold{
+  font-weight: 700;
+}
+
+#mymodal{
+  display: none;
+}
+
+.is-show{
+  display: block !important;
+}
+
+.mybackground{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
+  cursor: pointer;
+  display: none;
+}
+
+@media screen and (max-width: 959px) {
+	.mymodal{
+    width: 80%;
+  }
+
+  .mymodal th{
+    font-size: 1.2rem;
+  }
+
+  .mymodal td{
+    font-size: 1.2rem;
+  }
+}
