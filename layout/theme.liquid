@@ -12,9 +12,14 @@
   {{ 'application.js' | asset_url | script_tag }}
   {{ '//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js' | script_tag }}
 
-  
+
   {% comment %} Task a {% endcomment %}
   {{ 'task-a.css' | asset_url | stylesheet_tag }}
+  {% comment %} /// {% endcomment %}
+
+
+  {% comment %} Task a {% endcomment %}
+  {{ 'task-c.css' | asset_url | stylesheet_tag }}
   {% comment %} /// {% endcomment %}
 
 

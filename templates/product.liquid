@@ -40,6 +40,99 @@
 <div>{{ product.description }}</div>
 
 
+{% comment %} Task c {% endcomment %}
+<div class="mymodal" id="mymodal">
+  <div class="mymodal__wrapper">
+    <p class="mymodal__text">Just to let you know...</p>
+    <h2 class="mymodal__title">{{ product.title }}</h2>
+    <div class="mymodal__stock">
+      {% assign currentStock = 0 %}
+      {% for type in product.variants %}
+        {% assign currentStock = currentStock | plus: type.inventory_quantity %}
+      {% endfor %}
+      {% if currentStock > 0 %}
+        <table>
+          <thead>
+            <th>Type</th>
+            <th>Stock</th>
+          </thead>
+          <tbody>
+            {% for type in product.variants %}
+              <tr>
+                <td>{{ type.title }}</td>
+                <td>{{ type.inventory_quantity }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table> 
+      {% else %}
+        <p class="bold">{{product.title}} is sold out</p>
+      {% endif %}
+    </div>
+    <div class="mymodal__cart">
+      {% if cart.item_count > 0 %}
+        <h4>Your cart information</h4>
+        <table>
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Cart Index</th>
+              <th>Total</th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in cart.items %}
+              <tr>
+                <td>{{ item.product.title }}</td>
+                <td>{{ item.quantity }}</td>
+                <td>{{ item.price | money }}</td>
+                <td>
+                  {% for property in item.properties %}
+                    {{ property.last }}
+                  {% endfor %}
+                </td>
+                <td>{{ item.price | times: item.quantity | money }}</td>
+              </tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      {% endif %}
+    </div>
+    <div class="mymodal__total">
+      <p class="bold">Total items in cart: <span class="red">{{cart.item_count}}</span></p>
+      <p class="bold">Total price: <span class="red">{{ cart.total_price | money }}</span></p>
+    </div>
+    <div class="mymodal__button">
+      <button type="button" id="mybutton" onclick="buttonClick()">Close</button>
+    </div>
+  </div>
+</div>
+<div class="mybackground" id="mybackground" onclick="buttonClick()"></div>
+{% comment %} /// {% endcomment %}
+
+
+{% comment %} Task c {% endcomment %}
+<script>
+
+  var myBackground = document.getElementById('mybackground');
+  var myButton = document.getElementById('mybutton');
+  var mymodal = document.getElementById('mymodal');
+
+  window.onload = function(){
+    mymodal.classList.add('is-show');
+    myBackground.classList.add('is-show');
+  }
+
+  function buttonClick(){
+    mymodal.classList.remove('is-show');
+    myBackground.classList.remove('is-show');
+  }
+
+</script>
+{% comment %} Task /// {% endcomment %}
+
 
 {% comment %} Task a {% endcomment %}
 <script>
@@ -57,7 +150,7 @@
       ]
     })
   }
-  
+
   //button
   $("#Quantity").change(function(){
     {% assign num = 0 %}
