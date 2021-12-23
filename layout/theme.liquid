@@ -9,9 +9,8 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
   {{ content_for_header }} <!-- Header hook for plugins -->
   {{ 'application.css' | asset_url | stylesheet_tag }}
-  {{ 'application.js' | asset_url | script_tag }}
+  {{ 'my-application-browserify.js' | asset_url | script_tag }}
   {{ '//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js' | script_tag }}
-
 
   {% comment %} Task a {% endcomment %}
   {{ 'task-a.css' | asset_url | stylesheet_tag }}
@@ -59,5 +58,49 @@
 
   </main>
 
+<<<<<<< HEAD
+=======
+{% comment %} Task a {% endcomment %}
+<script>
+
+function cartIndex() {
+  jQuery.post('/cart/add.js', {
+    items: [
+      {
+        quantity: parseInt($("#Quantity").val()),
+        id: {{ product.selected_or_first_available_variant.id }},
+        properties: {
+          'cart_index': {{ cart.item_count }}
+        }
+      }
+    ]
+  })
+}
+
+//button
+$("#Quantity").change(function(){
+  {% assign num = 0 %}
+    {% for quantity in cart.items %}
+      {% if quantity.product.id == product.id%}
+        {% assign num = num | plus: quantity.quantity %}
+      {% endif  %}
+    {% endfor %}
+    var newQuantity = {{num}};
+    var currentInventory = {{ current_variant.inventory_quantity }};
+    var myQuantity = parseInt($("#Quantity").val());
+    var addToCart = $("#addToCart");
+    if(currentInventory < newQuantity + myQuantity){
+      addToCart.addClass("is-gray");
+      addToCart.text("Out of Stock");
+    } else {
+      addToCart.removeClass("is-gray");
+      addToCart.text("Add to cart");
+    }
+});
+</script>
+
+
+
+>>>>>>> origin/d
 </body>
 </html>
