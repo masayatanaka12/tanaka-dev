@@ -8,6 +8,7 @@
   <link rel="canonical" href="{{ canonical_url }}">
   <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
   {{ content_for_header }} <!-- Header hook for plugins -->
+  {{ 'mystyle.css' | asset_url | stylesheet_tag }}
   {{ 'application.css' | asset_url | stylesheet_tag }}
   {{ 'my-application-browserify.js' | asset_url | script_tag }}
   {{ '//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js' | script_tag }}
@@ -33,10 +34,10 @@
         <a href="{{ childlink.url }}">{{ childlink.title | escape }}</a>
       {% endfor %}]
     {% else %}
-      <a href="{{ link.url }}">{{ link.title }}</a>
+      <a  class="mystyle-link" href="{{ link.url }}">{{ link.title }}</a>
     {% endif %}
   {% endfor %}
-  <a href="/cart">cart</a>
+  <a  class="mystyle-link" href="/cart">cart</a>
   {% if shop.customer_accounts_enabled %}
     {% if customer %}
       <a href="/account">account</a>
