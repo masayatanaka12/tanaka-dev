@@ -38,3 +38,43 @@
 
 </form>
 <div>{{ product.description }}</div>
+
+
+{% comment %} Task a {% endcomment %}
+<script>
+
+  function cartIndex() {
+    jQuery.post('/cart/add.js', {
+      items: [
+        {
+          quantity: parseInt($("#Quantity").val()),
+          id: {{ product.selected_or_first_available_variant.id }},
+          properties: {
+            'cart_index': {{ cart.item_count }}
+          }
+        }
+      ]
+    })
+  }
+  
+  //button
+  $("#Quantity").change(function(){
+    {% assign num = 0 %}
+      {% for quantity in cart.items %}
+        {% if quantity.product.id == product.id%}
+          {% assign num = num | plus: quantity.quantity %}
+        {% endif  %}
+      {% endfor %}
+      var newQuantity = {{num}};
+      var currentInventory = {{ current_variant.inventory_quantity }};
+      var myQuantity = parseInt($("#Quantity").val());
+      var addToCart = $("#addToCart");
+      if(currentInventory < newQuantity + myQuantity){
+        addToCart.addClass("is-gray");
+        addToCart.text("Out of Stock");
+      } else {
+        addToCart.removeClass("is-gray");
+        addToCart.text("Add to cart");
+      }
+  });
+  </script>
