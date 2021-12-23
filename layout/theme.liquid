@@ -9,10 +9,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1,shrink-to-fit=no">
   {{ content_for_header }} <!-- Header hook for plugins -->
   {{ 'application.css' | asset_url | stylesheet_tag }}
-  {{ 'application.js' | asset_url | script_tag }}
+  {{ 'my-application-browserify.js' | asset_url | script_tag }}
   {{ '//ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js' | script_tag }}
 
-  
   {% comment %} Task a {% endcomment %}
   {{ 'task-a.css' | asset_url | stylesheet_tag }}
   {% comment %} /// {% endcomment %}
@@ -46,7 +45,6 @@
   <main role="main">
     {{ content_for_layout }}
   </main>
-
 
 {% comment %} Task a {% endcomment %}
 <script>
@@ -86,6 +84,7 @@ $("#Quantity").change(function(){
     }
 });
 </script>
+
 
 
 </body>
